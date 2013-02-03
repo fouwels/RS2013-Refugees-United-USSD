@@ -32,14 +32,29 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impl\SessionService.cs" />
+    <Compile Include="ISessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\Tam.Lib.Data\Tam.Lib.Data.csproj">
+      <Project>{80e085c4-170b-453e-bdc7-f37464c47da9}</Project>
+      <Name>Tam.Lib.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Tam.Lib.Model\Tam.Lib.Model.csproj">
+      <Project>{9a6167f2-a04f-41fd-973d-f62901d92b45}</Project>
+      <Name>Tam.Lib.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RS2013.RefugeesUnited.Data\RS2013.RefugeesUnited.Data.csproj">
+      <Project>{d05c489a-101f-4001-9317-1692803cdbca}</Project>
+      <Name>RS2013.RefugeesUnited.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RS2013.RefugeesUnited.Model\RS2013.RefugeesUnited.Model.csproj">
+      <Project>{ef7cb566-f77c-48d2-9b8f-afc64766bd5e}</Project>
+      <Name>RS2013.RefugeesUnited.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
