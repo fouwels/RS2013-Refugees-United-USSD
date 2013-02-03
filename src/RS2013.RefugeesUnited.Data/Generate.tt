@@ -1,0 +1,1 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#><#@ include file="..\..\lib\Tam.Lib.Data\Generate.CS.ttinclude"#><# Generate("..\\RS2013.RefugeesUnited.Model\\Model.edmx", "RS2013.RefugeesUnited"); #>
