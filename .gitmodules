@@ -1,0 +1,12 @@
+[submodule "lib/Tam.Lib.Data"]
+	path = lib/Tam.Lib.Data
+	url = git@bitbucket.org:BillinghamJ/lib-data.git
+[submodule "lib/Tam.Lib.Services"]
+	path = lib/Tam.Lib.Services
+	url = git@bitbucket.org:BillinghamJ/lib-services.git
+[submodule "lib/Tam.Lib.Model"]
+	path = lib/Tam.Lib.Model
+	url = git@bitbucket.org:BillinghamJ/lib-model.git
+[submodule "lib/Tam.Lib.Security"]
+	path = lib/Tam.Lib.Security
+	url = git@bitbucket.org:BillinghamJ/lib-security.git
