@@ -39,14 +39,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Tam.Lib.Data\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.0.0.7\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.5.3\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -63,8 +82,32 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\Tam.Lib.Data\Tam.Lib.Data.csproj">
+      <Project>{80E085C4-170B-453E-BDC7-F37464C47DA9}</Project>
+      <Name>Tam.Lib.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Tam.Lib.Model\Tam.Lib.Model.csproj">
+      <Project>{9A6167F2-A04F-41FD-973D-F62901D92B45}</Project>
+      <Name>Tam.Lib.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RS2013.RefugeesUnited.Data\RS2013.RefugeesUnited.Data.csproj">
+      <Project>{D05C489A-101F-4001-9317-1692803CDBCA}</Project>
+      <Name>RS2013.RefugeesUnited.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RS2013.RefugeesUnited.Model\RS2013.RefugeesUnited.Model.csproj">
+      <Project>{EF7CB566-F77C-48D2-9B8F-AFC64766BD5E}</Project>
+      <Name>RS2013.RefugeesUnited.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RS2013.RefugeesUnited.Services\RS2013.RefugeesUnited.Services.csproj">
+      <Project>{2BE1A179-7D01-4EA2-98FC-D4125E6A5519}</Project>
+      <Name>RS2013.RefugeesUnited.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
