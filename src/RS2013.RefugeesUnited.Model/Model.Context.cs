@@ -26,5 +26,8 @@ namespace RS2013.RefugeesUnited.Model
 			throw new UnintentionalCodeFirstException();
 		}
 
+		public DbSet<Device> Devices { get; set; }
+		public DbSet<User> Users { get; set; }
+		public DbSet<Session> Sessions { get; set; }
 	}
 }

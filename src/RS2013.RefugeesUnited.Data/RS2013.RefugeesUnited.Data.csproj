@@ -30,30 +30,63 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceRepository.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Generate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Generate.tt</DependentUpon>
     </Compile>
+    <Compile Include="IDeviceRepository.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ISessionRepository.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IUserRepository.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionRepository.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRepository.cs">
+      <DependentUpon>Generate.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Generate.tt">
       <LastGenOutput>Generate.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\Tam.Lib.Data\Tam.Lib.Data.csproj">
+      <Project>{80e085c4-170b-453e-bdc7-f37464c47da9}</Project>
+      <Name>Tam.Lib.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Tam.Lib.Model\Tam.Lib.Model.csproj">
+      <Project>{9a6167f2-a04f-41fd-973d-f62901d92b45}</Project>
+      <Name>Tam.Lib.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RS2013.RefugeesUnited.Model\RS2013.RefugeesUnited.Model.csproj">
+      <Project>{ef7cb566-f77c-48d2-9b8f-afc64766bd5e}</Project>
+      <Name>RS2013.RefugeesUnited.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

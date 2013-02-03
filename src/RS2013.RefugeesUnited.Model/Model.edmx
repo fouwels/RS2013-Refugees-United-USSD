@@ -13,7 +13,54 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Devices" EntityType="Model.Device" />
+          <EntitySet Name="Users" EntityType="Model.User" />
+          <EntitySet Name="Sessions" EntityType="Model.Session" />
+          <AssociationSet Name="DeviceUser" Association="Model.DeviceUser">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserSession" Association="Model.UserSession">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Session" EntitySet="Sessions" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
+          <Property Type="String" Name="Number" Nullable="false" />
+          <Property Type="Boolean" Name="Blacklisted" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Model.DeviceUser" FromRole="Device" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
+          <Property Type="String" Name="ApiId" Nullable="false" />
+          <NavigationProperty Name="Device" Relationship="Model.DeviceUser" FromRole="User" ToRole="Device" />
+          <NavigationProperty Name="Session" Relationship="Model.UserSession" FromRole="User" ToRole="Session" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
+          <Property Type="String" Name="UssdId" Nullable="false" />
+          <Property Type="DateTime" Name="StartTimestamp" Nullable="false" />
+          <Property Type="DateTime" Name="ActivityTimestamp" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model.UserSession" FromRole="Session" ToRole="User" />
+        </EntityType>
+        <Association Name="DeviceUser">
+          <End Type="Model.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="Model.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="UserSession">
+          <End Type="Model.User" Role="User" Multiplicity="0..1" />
+          <End Type="Model.Session" Role="Session" Multiplicity="0..1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
