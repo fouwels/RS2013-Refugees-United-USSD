@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/03/2013 12:36:52
--- Generated from EDMX file: Z:\Projects\RefUnited\src\RS2013.RefugeesUnited.Model\Model.edmx
+-- Date Created: 02/04/2013 15:26:08
+-- Generated from EDMX file: \\vmware-host\Shared Folders\Projects\RefUnited\src\RS2013.RefugeesUnited.Model\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -46,7 +46,7 @@ GO
 CREATE TABLE [dbo].[Devices] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Number] nvarchar(max)  NOT NULL,
-    [Blacklisted] bit  NOT NULL
+    [BlacklistReason] nvarchar(max)  NULL
 );
 GO
 
@@ -54,6 +54,7 @@ GO
 CREATE TABLE [dbo].[Users] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [ApiId] nvarchar(max)  NOT NULL,
+    [BlacklistReason] nvarchar(max)  NULL,
     [Device_Id] bigint  NULL
 );
 GO
@@ -64,6 +65,8 @@ CREATE TABLE [dbo].[Sessions] (
     [UssdId] nvarchar(max)  NOT NULL,
     [StartTimestamp] datetime  NOT NULL,
     [ActivityTimestamp] datetime  NOT NULL,
+    [State] tinyint  NOT NULL,
+    [StateJson] nvarchar(max)  NULL,
     [User_Id] bigint  NULL
 );
 GO

@@ -38,6 +38,7 @@
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SessionState.cs" />
     <Compile Include="Device.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
