@@ -15,9 +15,15 @@ namespace RS2013.RefugeesUnited.Model
 
 	public partial class User : IEntity
 	{
+		public User()
+		{
+			Sessions = new HashSet<Session>();
+		}
+
 		public long Id { get; private set; }
 		public string ApiId { get; set; }
+		public string BlacklistReason { get; set; }
 		public virtual Device Device { get; set; }
-		public virtual Session Session { get; set; }
+		public virtual ICollection<Session> Sessions { get; set; }
 	}
 }

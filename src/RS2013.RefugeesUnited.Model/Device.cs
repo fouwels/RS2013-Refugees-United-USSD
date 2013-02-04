@@ -22,7 +22,7 @@ namespace RS2013.RefugeesUnited.Model
 
 		public long Id { get; private set; }
 		public string Number { get; set; }
-		public bool Blacklisted { get; set; }
+		public string BlacklistReason { get; set; }
 		public virtual ICollection<User> Users { get; set; }
 	}
 }

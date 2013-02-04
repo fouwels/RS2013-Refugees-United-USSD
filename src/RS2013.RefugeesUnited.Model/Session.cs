@@ -19,6 +19,8 @@ namespace RS2013.RefugeesUnited.Model
 		public string UssdId { get; set; }
 		public System.DateTime StartTimestamp { get; set; }
 		public System.DateTime ActivityTimestamp { get; set; }
+		public SessionState State { get; set; }
+		public string StateJson { get; set; }
 		public virtual User User { get; set; }
 	}
 }

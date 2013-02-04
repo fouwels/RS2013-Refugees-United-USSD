@@ -24,7 +24,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Blacklisted" Type="bit" Nullable="false" />
+    <Property Name="BlacklistReason" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -32,6 +32,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ApiId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BlacklistReason" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Device_Id" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="Sessions">
@@ -42,6 +43,8 @@
     <Property Name="UssdId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="StartTimestamp" Type="datetime" Nullable="false" />
     <Property Name="ActivityTimestamp" Type="datetime" Nullable="false" />
+    <Property Name="State" Type="tinyint" Nullable="false" />
+    <Property Name="StateJson" Type="nvarchar(max)" Nullable="true" />
     <Property Name="User_Id" Type="bigint" Nullable="true" />
   </EntityType>
   <Association Name="DeviceUser">
@@ -91,7 +94,11 @@
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <Property Type="String" Name="Number" Nullable="false" />
-          <Property Type="Boolean" Name="Blacklisted" Nullable="false" />
+          <Property Type="String" Name="BlacklistReason" Nullable="true" >
+            <Documentation>
+              <Summary>Null value indicates not blacklisted, non-null value indicates blacklisted with reason</Summary>
+            </Documentation>
+          </Property>
           <NavigationProperty Name="Users" Relationship="Model.DeviceUser" FromRole="Device" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
@@ -101,7 +108,12 @@
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
           <Property Type="String" Name="ApiId" Nullable="false" />
           <NavigationProperty Name="Device" Relationship="Model.DeviceUser" FromRole="User" ToRole="Device" />
-          <NavigationProperty Name="Session" Relationship="Model.UserSession" FromRole="User" ToRole="Session" />
+          <NavigationProperty Name="Sessions" Relationship="Model.UserSession" FromRole="User" ToRole="Session" />
+          <Property Type="String" Name="BlacklistReason" Nullable="true" >
+            <Documentation>
+              <Summary>Null value indicates not blacklisted, non-null value indicates blacklisted with reason</Summary>
+            </Documentation>
+          </Property>
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -112,6 +124,12 @@
           <Property Type="DateTime" Name="StartTimestamp" Nullable="false" />
           <Property Type="DateTime" Name="ActivityTimestamp" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Model.UserSession" FromRole="Session" ToRole="User" />
+          <Property Type="Model.SessionState" Name="State" Nullable="false" >
+            <Documentation>
+              <Summary>State of the user's session - e.g. which screen they're on</Summary>
+            </Documentation>
+          </Property>
+          <Property Type="String" Name="StateJson" Nullable="true" />
         </EntityType>
         <Association Name="DeviceUser">
           <End Type="Model.Device" Role="Device" Multiplicity="0..1" />
@@ -119,8 +137,17 @@
         </Association>
         <Association Name="UserSession">
           <End Type="Model.User" Role="User" Multiplicity="0..1" />
-          <End Type="Model.Session" Role="Session" Multiplicity="0..1" />
+          <End Type="Model.Session" Role="Session" Multiplicity="*" />
         </Association>
+        <EnumType Name="SessionState" UnderlyingType="Byte" cg:ExternalTypeName="SessionState">
+          <Member Name="AuthenticationOptions" Value="1" />
+          <Member Name="ConnectAccount" Value="2" />
+          <Member Name="Register" Value="3" />
+          <Member Name="Login" Value="4" />
+          <Member Name="Terminated" Value="0" />
+          <Member Name="LoginCode" Value="5" />
+          <Member Name="MainMenu" Value="6" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -132,7 +159,7 @@
         <MappingFragment StoreEntitySet="Devices">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Number" ColumnName="Number" />
-          <ScalarProperty Name="Blacklisted" ColumnName="Blacklisted" />
+          <ScalarProperty Name="BlacklistReason" ColumnName="BlacklistReason" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -141,6 +168,7 @@
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ApiId" ColumnName="ApiId" />
+          <ScalarProperty Name="BlacklistReason" ColumnName="BlacklistReason" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -151,6 +179,8 @@
           <ScalarProperty Name="UssdId" ColumnName="UssdId" />
           <ScalarProperty Name="StartTimestamp" ColumnName="StartTimestamp" />
           <ScalarProperty Name="ActivityTimestamp" ColumnName="ActivityTimestamp" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="StateJson" ColumnName="StateJson" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
