@@ -45,7 +45,7 @@ namespace RS2013.RefugeesUnited.API
 			kernel.Bind<IDeviceRepository>().To<DeviceRepository>();
 			kernel.Bind<IUserRepository>().To<UserRepository>();
 
-			kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
+			kernel.Bind<IRefUnitedApiConnect>().To<RefUnitedApiConnect>();
 			kernel.Bind<ISessionService>().To<SessionService>();
 
 			return kernel;
