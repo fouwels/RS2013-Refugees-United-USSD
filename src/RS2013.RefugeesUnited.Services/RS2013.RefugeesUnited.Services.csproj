@@ -34,9 +34,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAuthenticationService.cs" />
-    <Compile Include="Impl\AuthenticationService.cs" />
+    <Compile Include="Impl\RefUnitedApiConnect.cs" />
     <Compile Include="Impl\SessionService.cs" />
+    <Compile Include="IRefUnitedApiConnect.cs" />
     <Compile Include="ISessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
