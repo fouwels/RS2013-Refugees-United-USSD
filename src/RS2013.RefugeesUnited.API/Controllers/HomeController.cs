@@ -19,8 +19,8 @@ namespace RS2013.RefugeesUnited.API.Controllers
 		{
             IRefugeesUnitedService testService = new RefugeesUnitedService();
 
-		    var testUsername = testService.GenerateUsername("Kaelan", "Fouwels");
-			var testUserExists = testService.UserExists("kfouwels");
+		    var testUsername = testService.GenerateUsername("KaelanB", "Fouwels");
+			var testUserExists = testService.UserExists("kaelanB.fouwels");
 
 		    return Content("");
 		}

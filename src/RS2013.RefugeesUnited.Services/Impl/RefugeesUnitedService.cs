@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using RS2013.RefugeesUnited.Model;
 using System.Net;
 
@@ -24,8 +25,6 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
         public async Task<RefUnitedProfile> Login(Device device, string username, string password)
         {
-
-			
             throw new System.NotImplementedException();
         }
 
@@ -39,33 +38,32 @@ namespace RS2013.RefugeesUnited.Services.Impl
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> UserExists(string username)
-        {
-	        List<string> parameters = new List<string>();
-			string tellme = GetApi(UrlBuilder(("profile/exists/:" + username), parameters));
-
-			return tellme.Contains("true");
-        }
-
-        public async Task<IEnumerable<RefUnitedSearchResult>> Search(string name)
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string name)
         {
             throw new System.NotImplementedException();
         }
-
-        public async Task<string> GenerateUsername(string givenName, string surName) //WIP
+        public async Task<bool> UserExists(string username) //95%
         {
-            //done: Extract username from api response
-            //done: Return username as string
-            //todo: Error handling << What if null?
+	        List<string> parameters = new List<string>();
+	        var x = JsonConvert.DeserializeAnonymousType(GetApi(UrlBuilder(("profile/exists/:" + username), parameters)), new {exists = false});
+	        return x.exists;
+        } 
 
-            List<string> parameters = new List<string> {"givenName=" + givenName, "surName=" + surName};
+        
 
-            //EG:In as  "\n{\"username\":\"kaelan.fouwels\"}"
-            return GetApi(UrlBuilder("usernamegenerator/", parameters)).Split('"')[3]; //Deserialising is too mainstream yo.
-        }
+	    public async Task<string> GenerateUsername(string givenName, string surName) //95%
+	    {
+		    //done: Extract username from api response
+		    //done: Return username as string
+		    //todo: Error handling << What if null?
+
+		    List<string> parameters = new List<string> {"givenName=" + givenName, "surName=" + surName};
+		    var x = JsonConvert.DeserializeAnonymousType(GetApi(UrlBuilder("usernamegenerator/", parameters)), new {username = string.Empty});
+		    return x.username;
+	    }
 
 
-        private string GetApi(string url) //WIP
+        private string GetApi(string url) //95%
         {
             //done: Return API data as x << done
             //todo: Async shizzle.
@@ -77,10 +75,11 @@ namespace RS2013.RefugeesUnited.Services.Impl
             request.Method = "GET";
             request.ContentType = "application/json";
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse(); //Working.
+			HttpWebResponse response = (HttpWebResponse) request.GetResponse(); //Working.
 
             StreamReader sr0 = new StreamReader(response.GetResponseStream());
-            string tempString = sr0.ReadToEnd();
+
+			string tempString = sr0.ReadToEnd();
 
             response.Close();
             sr0.Close();
@@ -88,7 +87,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
             return tempString;
         }
 
-        private string UrlBuilder(string apiAction, List<string> parameters) //Working
+        private string UrlBuilder(string apiAction, List<string> parameters) //95%
         {
             string url = (_apiServerHost + apiAction + "?");
             return parameters.Aggregate(url, (current, parameter) => (current + parameter + "&"));
