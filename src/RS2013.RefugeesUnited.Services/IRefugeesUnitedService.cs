@@ -14,7 +14,6 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="username">Username for user</param>
 		/// <param name="password">Password for user</param>
 		/// <returns>A profile object, or null if the authentication failed</returns>
-		//Task<RefUnitedProfile> Login(Device device, string username, string password);
 
 		Task<bool> Login(string username, string password);
 
