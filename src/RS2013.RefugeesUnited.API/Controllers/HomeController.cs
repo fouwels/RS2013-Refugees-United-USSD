@@ -17,20 +17,10 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 		public ActionResult Index()
 		{
-            ////TESTING
-            //const string apiServerHost = "http://api.ru.istykker.dk/";
-            //const string apiServerUsername = "hackathon";
-            //const string apiServerPassword = "179d50c6eb31188925926a5d1872e8117dc58572";
-            
-            //RefUnitedApiConnect testApiConnector = new RefUnitedApiConnect(
-            //                                                                apiServerHost, 
-            //                                                                apiServerUsername, 
-            //                                                                apiServerPassword);
-            //User testUser = new User();
-		    
-            //testApiConnector.ProfileGet(testUser);
+            //RefugeesUnitedService testService = new RefugeesUnitedService();
 
-            ////---------------------
+            //testService.GenerateUsername("Kaelan", "Fouwels");
+
 			return Content("");
 		}
 	}
