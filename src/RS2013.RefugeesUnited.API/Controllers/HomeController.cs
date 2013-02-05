@@ -17,9 +17,9 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 		public ActionResult Index()
 		{
-            //RefugeesUnitedService testService = new RefugeesUnitedService();
+            RefugeesUnitedService testService = new RefugeesUnitedService();
 
-            //testService.GenerateUsername("Kaelan", "Fouwels");
+            testService.GenerateUsername("Kaelan", "Fouwels");
 
 			return Content("");
 		}
