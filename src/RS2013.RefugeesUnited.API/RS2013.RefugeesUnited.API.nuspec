@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <id>RS2013.RefugeesUnited.API</id>
-    <title>Rewired State 2013 - Refugees United - API</title>
-    <version>1.0.0</version>
-    <authors>James Billingham; Kaelan Fouwels</authors>
-  </metadata>
+	<metadata>
+		<id>RS2013.RefugeesUnited.API</id>
+		<title>Rewired State 2013 - Refugees United - API</title>
+		<version>1.0.0</version>
+		<authors>James Billingham; Kaelan Fouwels</authors>
+		<owners>James Billingham; Kaelan Fouwels</owners>
+		<licenseUrl></licenseUrl>
+		<projectUrl></projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>API for Refugees United prototypw for Rewired State 2013 event.</description>
+	</metadata>
 </package>
