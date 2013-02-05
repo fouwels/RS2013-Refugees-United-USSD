@@ -28,8 +28,25 @@ namespace RS2013.RefugeesUnited.Services.Impl
             throw new System.NotImplementedException();
         }
 
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string name)
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch) //WIP 50%
 		{
+			List<string> parameters = new List<string>();
+
+			if (profileToSearch.surName != null)			{ parameters.Add("name=" + profileToSearch.givenName + " " + profileToSearch.surName);}
+			else if (profileToSearch.surName == null)		{ parameters.Add("name=" + profileToSearch.givenName);}
+			if (profileToSearch.genderId != null)			{ parameters.Add("genderId=" + profileToSearch.genderId);}
+			if (profileToSearch.birthCountryId != null)		{ parameters.Add("countryOfBirthId=" + profileToSearch.birthCountryId); }
+			if (profileToSearch.lastSighting != null)		{ parameters.Add("lastSighting=" + profileToSearch.lastSighting); }
+			if (profileToSearch.otherInformation != null)	{ parameters.Add("otherInformation=" + profileToSearch.otherInformation); }
+
+
+			var y = GetApi(UrlBuilder("search/", parameters)); //Raw data
+
+			throw new System.NotImplementedException();
+		}
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)
+		{
+			
 			throw new System.NotImplementedException();
 		}
 

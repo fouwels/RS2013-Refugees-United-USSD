@@ -51,8 +51,14 @@ namespace RS2013.RefugeesUnited.Services
 		/// <summary>
 		/// Searches for other profiles
 		/// </summary>
-		/// <param name="name">Name to search for</param>
+		/// <param name="profileToSearch">Profile object of person seaching for</param>
 		/// <returns>Enumerable list of search results</returns>
-		Task<IEnumerable<RefUnitedSearchResult>> Search(string name);
+		Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch);
+		/// <summary>
+		/// Searches for other profiles
+		/// </summary>
+		/// <param name="nameToSearch">Name of person seaching for</param>
+		/// <returns>Enumerable list of search results</returns>
+		Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch);
 	}
 }

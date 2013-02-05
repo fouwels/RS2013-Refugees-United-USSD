@@ -20,10 +20,19 @@ namespace RS2013.RefugeesUnited.API.Controllers
             IRefugeesUnitedService testService = new RefugeesUnitedService();
 
 		    //var testUsername = testService.GenerateUsername("Kaelan", "Fouwels");
-			var testUserExists = testService.UserExists("kaelan.fouwels");
-
+			//var testUserExists = testService.UserExists("kaelan.fouwels");
 			//var testLogin = testService.Login("kaelan.fouwels", "8740");
 			//var testLogout = testService.Logout("kaelanb.fouwels");
+
+			RefUnitedProfile testProfile = new RefUnitedProfile
+				{
+					givenName = "kaelan", 
+					surName = "fouwels",
+					otherInformation = "I like trains",
+					lastSighting = "Test"
+				};
+
+			var testSearch = testService.Search(testProfile);
 
 		    return Content("");
 		}
