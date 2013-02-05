@@ -23,34 +23,40 @@ namespace RS2013.RefugeesUnited.Services.Impl
             _apiServerPassword = ConfigurationManager.AppSettings["ApiServerPassword"];
         }
 
-        public async Task<RefUnitedProfile> Login(Device device, string username, string password)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<bool> Logout(string username)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile)
+		public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile)
         {
             throw new System.NotImplementedException();
         }
 
 		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string name)
+		{
+			throw new System.NotImplementedException();
+		}
+
+        public async Task<bool> Logout(string username) //75%
         {
-            throw new System.NotImplementedException();
+
+	        var y = GetApi(UrlBuilder("profile/logout/" + username)); //raw input
+			//Return true if succesfull
+	        return false;
         }
-        public async Task<bool> UserExists(string username) //95%
+
+		public async Task<bool> Login(string username, string password) //75%
         {
-	        List<string> parameters = new List<string>();
-	        var x = JsonConvert.DeserializeAnonymousType(GetApi(UrlBuilder(("profile/exists/:" + username), parameters)), new {exists = false});
-	        return x.exists;
+			List<string> parameters = new List<string> {"password=" + password};
+			var y = GetApi(UrlBuilder("profile/login/" + username, parameters)); //raw input
+
+            //Return true if successfull
+	        return false;
         } 
 
-        
-
+        public async Task<bool> UserExists(string username) //95%
+        {
+	        var y = GetApi(UrlBuilder(("profile/exists/:" + username))); //raw input
+	        var x = JsonConvert.DeserializeAnonymousType(y, new {exists = false});
+	        return x.exists;
+        } 
+		
 	    public async Task<string> GenerateUsername(string givenName, string surName) //95%
 	    {
 		    //done: Extract username from api response
@@ -58,10 +64,11 @@ namespace RS2013.RefugeesUnited.Services.Impl
 		    //todo: Error handling << What if null?
 
 		    List<string> parameters = new List<string> {"givenName=" + givenName, "surName=" + surName};
-		    var x = JsonConvert.DeserializeAnonymousType(GetApi(UrlBuilder("usernamegenerator/", parameters)), new {username = string.Empty});
+
+		    var y = GetApi(UrlBuilder("usernamegenerator/", parameters)); //rwa input
+		    var x = JsonConvert.DeserializeAnonymousType(y, new {username = string.Empty});
 		    return x.username;
 	    }
-
 
         private string GetApi(string url) //95%
         {
@@ -92,6 +99,11 @@ namespace RS2013.RefugeesUnited.Services.Impl
             string url = (_apiServerHost + apiAction + "?");
             return parameters.Aggregate(url, (current, parameter) => (current + parameter + "&"));
         }
+
+		private string UrlBuilder(string apiAction) //95%
+		{
+			return(_apiServerHost + apiAction);
+		}
 
         //EG: http://api.ru.istykker.dk/usernamegenerator/?givenName=kaelan&surName=fouwels
     }
