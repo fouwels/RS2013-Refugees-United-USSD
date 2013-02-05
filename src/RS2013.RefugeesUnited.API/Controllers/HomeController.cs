@@ -17,11 +17,11 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 		public ActionResult Index()
 		{
-            RefugeesUnitedService testService = new RefugeesUnitedService();
+            IRefugeesUnitedService testService = new RefugeesUnitedService();
 
-            testService.GenerateUsername("Kaelan", "Fouwels");
+		    var testvar = testService.GenerateUsername("Kaelan", "Fouwels");
 
-			return Content("");
+		    return Content("");
 		}
 	}
 }

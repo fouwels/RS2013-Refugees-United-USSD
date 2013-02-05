@@ -48,20 +48,22 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
         public async Task<string> GenerateUsername(string givenName, string surName) //WIP
         {
-            //todo: Extract username from api reponse
-            //todo: Return username as string
+            //done: Extract username from api response
+            //done: Return username as string
+            //todo: Error handling << What if null?
 
             List<string> parameters = new List<string> {"givenName=" + givenName, "surName=" + surName};
-            GetApi(UrlBuilder("usernamegenerator/", parameters));
 
-            throw new System.NotImplementedException();
+            //EG:In as  "\n{\"username\":\"kaelan.fouwels\"}"
+            return GetApi(UrlBuilder("usernamegenerator/", parameters)).Split('"')[3];
         }
 
 
-        private void GetApi(string url) //WIP
+        private string GetApi(string url) //WIP
         {
-            //todo: Return API data as object.
+            //done: Return API data as x << done
             //todo: Async shizzle.
+            //todo: Error handling << What if 404?
 
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
             request.PreAuthenticate = true;
@@ -69,9 +71,15 @@ namespace RS2013.RefugeesUnited.Services.Impl
             request.Method = "GET";
             request.ContentType = "application/json";
 
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse(); //Working.
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse(); //Working.
 
-            throw new System.NotImplementedException();
+            StreamReader sr0 = new StreamReader(response.GetResponseStream());
+            string tempString = sr0.ReadToEnd();
+
+            response.Close();
+            sr0.Close();
+
+            return tempString;
         }
 
         private string UrlBuilder(string apiAction, List<string> parameters) //Working
