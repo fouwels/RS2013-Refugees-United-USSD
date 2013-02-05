@@ -25,11 +25,14 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile)
         {
+			//todo implement.
             throw new System.NotImplementedException();
         }
 
 		public async Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch) //WIP 50%
 		{
+			//todo Convert Json into refUnitedProfile obj.
+			//todo make async
 			List<string> parameters = new List<string>();
 
 			if (profileToSearch.surName != null)			{ parameters.Add("name=" + profileToSearch.givenName + " " + profileToSearch.surName);}
@@ -38,21 +41,24 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			if (profileToSearch.birthCountryId != null)		{ parameters.Add("countryOfBirthId=" + profileToSearch.birthCountryId); }
 			if (profileToSearch.lastSighting != null)		{ parameters.Add("lastSighting=" + profileToSearch.lastSighting); }
 			if (profileToSearch.otherInformation != null)	{ parameters.Add("otherInformation=" + profileToSearch.otherInformation); }
-
-
+			
 			var y = GetApi(UrlBuilder("search/", parameters)); //Raw data
+			//var x = JsonConvert.DeserializeObject(y);
 
 			throw new System.NotImplementedException();
 		}
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)
+
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)  //0%
 		{
-			
+			//todo implment.
 			throw new System.NotImplementedException();
 		}
 
         public async Task<bool> Logout(string username) //75%
         {
-
+			//todo make async
+			//todo test
+			//todo return true/false if failed/succeeded
 	        var y = GetApi(UrlBuilder("profile/logout/" + username)); //raw input
 			//Return true if succesfull
 	        return false;
@@ -60,6 +66,9 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public async Task<bool> Login(string username, string password) //75%
         {
+			//todo make async
+			//todo test
+			//todo return true/false if failed/succeeded
 			List<string> parameters = new List<string> {"password=" + password};
 			var y = GetApi(UrlBuilder("profile/login/" + username, parameters)); //raw input
 
@@ -69,17 +78,15 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
         public async Task<bool> UserExists(string username) //95%
         {
+			//todo test!
+			//todo make async
 	        var y = GetApi(UrlBuilder(("profile/exists/:" + username))); //raw input
 	        var x = JsonConvert.DeserializeAnonymousType(y, new {exists = false});
 	        return x.exists;
         } 
 		
-	    public async Task<string> GenerateUsername(string givenName, string surName) //95%
+	    public async Task<string> GenerateUsername(string givenName, string surName) //100%
 	    {
-		    //done: Extract username from api response
-		    //done: Return username as string
-		    //todo: Error handling << What if null?
-
 		    List<string> parameters = new List<string> {"givenName=" + givenName, "surName=" + surName};
 
 		    var y = GetApi(UrlBuilder("usernamegenerator/", parameters)); //rwa input
@@ -89,8 +96,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
         private string GetApi(string url) //95%
         {
-            //done: Return API data as x << done
-            //todo: Async shizzle.
+            //todo: Make Async
             //todo: Error handling << What if 404?
 
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
@@ -111,13 +117,13 @@ namespace RS2013.RefugeesUnited.Services.Impl
             return tempString;
         }
 
-        private string UrlBuilder(string apiAction, List<string> parameters) //95%
+        private string UrlBuilder(string apiAction, List<string> parameters) //100%
         {
             string url = (_apiServerHost + apiAction + "?");
             return parameters.Aggregate(url, (current, parameter) => (current + parameter + "&"));
         }
 
-		private string UrlBuilder(string apiAction) //95%
+		private string UrlBuilder(string apiAction) //100%
 		{
 			return(_apiServerHost + apiAction);
 		}
