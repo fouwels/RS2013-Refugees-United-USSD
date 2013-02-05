@@ -31,12 +31,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Impl\RefUnitedApiConnect.cs" />
+    <Compile Include="IAuthenticationService.cs" />
+    <Compile Include="Impl\RefugeesUnitedService.cs" />
     <Compile Include="Impl\SessionService.cs" />
-    <Compile Include="IRefUnitedApiConnect.cs" />
+    <Compile Include="IRefugeesUnitedService.cs" />
     <Compile Include="ISessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -31,8 +31,10 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ApiId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RefUnitedUsername" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BlacklistReason" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Initials" Type="nchar" Nullable="false" MaxLength="2" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
     <Property Name="Device_Id" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="Sessions">
@@ -106,7 +108,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
-          <Property Type="String" Name="ApiId" Nullable="false" />
+          <Property Type="String" Name="RefUnitedUsername" Nullable="false" />
           <NavigationProperty Name="Device" Relationship="Model.DeviceUser" FromRole="User" ToRole="Device" />
           <NavigationProperty Name="Sessions" Relationship="Model.UserSession" FromRole="User" ToRole="Session" />
           <Property Type="String" Name="BlacklistReason" Nullable="true" >
@@ -114,6 +116,8 @@
               <Summary>Null value indicates not blacklisted, non-null value indicates blacklisted with reason</Summary>
             </Documentation>
           </Property>
+          <Property Type="String" Name="Initials" Nullable="false" FixedLength="true" MaxLength="2" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="false" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -167,8 +171,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.User)">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="ApiId" ColumnName="ApiId" />
+          <ScalarProperty Name="RefUnitedUsername" ColumnName="RefUnitedUsername" />
           <ScalarProperty Name="BlacklistReason" ColumnName="BlacklistReason" />
+          <ScalarProperty Name="Initials" ColumnName="Initials" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

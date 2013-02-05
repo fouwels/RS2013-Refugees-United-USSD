@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/04/2013 15:26:08
+-- Date Created: 02/04/2013 23:28:29
 -- Generated from EDMX file: \\vmware-host\Shared Folders\Projects\RefUnited\src\RS2013.RefugeesUnited.Model\Model.edmx
 -- --------------------------------------------------
 
@@ -53,8 +53,10 @@ GO
 -- Creating table 'Users'
 CREATE TABLE [dbo].[Users] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [ApiId] nvarchar(max)  NOT NULL,
+    [RefUnitedUsername] nvarchar(max)  NOT NULL,
     [BlacklistReason] nvarchar(max)  NULL,
+    [Initials] nchar(2)  NOT NULL,
+    [DateOfBirth] datetime  NOT NULL,
     [Device_Id] bigint  NULL
 );
 GO
