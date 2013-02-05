@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
         public async Task<RefUnitedProfile> Login(Device device, string username, string password)
         {
+
+			
             throw new System.NotImplementedException();
         }
 
@@ -38,7 +41,10 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
         public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+	        List<string> parameters = new List<string>();
+			string tellme = GetApi(UrlBuilder(("profile/exists/:" + username), parameters));
+
+			return tellme.Contains("true");
         }
 
         public async Task<IEnumerable<RefUnitedSearchResult>> Search(string name)
@@ -55,7 +61,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
             List<string> parameters = new List<string> {"givenName=" + givenName, "surName=" + surName};
 
             //EG:In as  "\n{\"username\":\"kaelan.fouwels\"}"
-            return GetApi(UrlBuilder("usernamegenerator/", parameters)).Split('"')[3];
+            return GetApi(UrlBuilder("usernamegenerator/", parameters)).Split('"')[3]; //Deserialising is too mainstream yo.
         }
 
 
