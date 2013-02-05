@@ -21,8 +21,10 @@ namespace RS2013.RefugeesUnited.Model
 		}
 
 		public long Id { get; private set; }
-		public string ApiId { get; set; }
+		public string RefUnitedUsername { get; set; }
 		public string BlacklistReason { get; set; }
+		public string Initials { get; set; }
+		public System.DateTime DateOfBirth { get; set; }
 		public virtual Device Device { get; set; }
 		public virtual ICollection<Session> Sessions { get; set; }
 	}
