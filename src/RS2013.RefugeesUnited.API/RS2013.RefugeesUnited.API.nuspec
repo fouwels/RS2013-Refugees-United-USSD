@@ -6,8 +6,8 @@
 		<version>1.0.0</version>
 		<authors>James Billingham; Kaelan Fouwels</authors>
 		<owners>James Billingham; Kaelan Fouwels</owners>
-		<licenseUrl></licenseUrl>
-		<projectUrl></projectUrl>
+		<licenseUrl>http://www.jamesbillingham.com</licenseUrl>
+		<projectUrl>http://www.jamesbillingham.com</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>API for Refugees United prototypw for Rewired State 2013 event.</description>
 	</metadata>
