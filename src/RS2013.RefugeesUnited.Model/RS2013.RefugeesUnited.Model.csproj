@@ -38,9 +38,9 @@
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RefUnitedProfile.cs" />
-    <Compile Include="RefUnitedSearchResponse.cs" />
-    <Compile Include="RefUnitedSearchResult.cs" />
+    <Compile Include="RefugeesUnited\Profile.cs" />
+    <Compile Include="RefugeesUnited\PagedResponse.cs" />
+    <Compile Include="RefugeesUnited\SearchResult.cs" />
     <Compile Include="SessionState.cs" />
     <Compile Include="Device.cs">
       <DependentUpon>Model.tt</DependentUpon>

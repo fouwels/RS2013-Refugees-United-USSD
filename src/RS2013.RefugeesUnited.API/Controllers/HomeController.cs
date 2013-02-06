@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using RS2013.RefugeesUnited.Model;
+using RS2013.RefugeesUnited.Model.RefugeesUnited;
 using RS2013.RefugeesUnited.Services;
 
 namespace RS2013.RefugeesUnited.API.Controllers
@@ -23,7 +24,7 @@ namespace RS2013.RefugeesUnited.API.Controllers
 			var testLogin = await RefugeesUnitedService.Login(null, "kaelan.fouwels", "8740");
 			var testLogout = await RefugeesUnitedService.Logout("kaelanb.fouwels");
 
-			var testProfile = new RefUnitedProfile
+			var testProfile = new Profile
 			{
 				givenName = "kaelan",
 				surName = "fouwels",

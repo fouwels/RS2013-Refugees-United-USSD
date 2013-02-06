@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using RS2013.RefugeesUnited.Model;
+using RS2013.RefugeesUnited.Model.RefugeesUnited;
 
 namespace RS2013.RefugeesUnited.Services
 {
@@ -13,7 +14,7 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="username">Username for user</param>
 		/// <param name="password">Password for user</param>
 		/// <returns>A profile object, or null if the authentication failed</returns>
-		Task<RefUnitedProfile> Login(Device device, string username, string password);
+		Task<Profile> Login(Device device, string username, string password);
 
 		/// <summary>
 		/// Attempts to logout a user's Refugees United profile
@@ -28,7 +29,7 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="device">Device used to make the registration</param>
 		/// <param name="profile">Profile to create</param>
 		/// <returns>Created profile</returns>
-		Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile);
+		Task<Profile> Register(Device device, Profile profile);
 		
 		/// <summary>
 		/// Finds out if a username is valid & exists in the Refugees United system
@@ -50,13 +51,13 @@ namespace RS2013.RefugeesUnited.Services
 		/// </summary>
 		/// <param name="profile">Profile object of person being searched for</param>
 		/// <returns>Enumerable list of search results</returns>
-		Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profile);
+		Task<IEnumerable<SearchResult>> Search(Profile profile);
 
 		/// <summary>
 		/// Searches for other profiles
 		/// </summary>
 		/// <param name="name">Name of person being searched for</param>
 		/// <returns>Enumerable list of search results</returns>
-		Task<IEnumerable<RefUnitedSearchResult>> Search(string name);
+		Task<IEnumerable<SearchResult>> Search(string name);
 	}
 }

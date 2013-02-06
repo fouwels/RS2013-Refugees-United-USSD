@@ -1,6 +1,6 @@
-﻿namespace RS2013.RefugeesUnited.Model
+namespace RS2013.RefugeesUnited.Model.RefugeesUnited
 {
-	public class RefUnitedProfile
+	public class Profile
 	{
 		// ReSharper disable InconsistentNaming
 		public string username { get; set; }

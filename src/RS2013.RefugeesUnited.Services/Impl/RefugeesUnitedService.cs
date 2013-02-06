@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using RS2013.RefugeesUnited.Model;
+using RS2013.RefugeesUnited.Model.RefugeesUnited;
 
 namespace RS2013.RefugeesUnited.Services.Impl
 {
@@ -23,13 +24,13 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			_apiServerPassword = ConfigurationManager.AppSettings["ApiServerPassword"];
 		}
 
-		public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile) //0%
+		public async Task<Profile> Register(Device device, Profile profile) //0%
 		{
 			//todo implement.
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch) // 95%
+		public async Task<IEnumerable<SearchResult>> Search(Profile profileToSearch) // 95%
 		{
 			//test
 			var parameters = new Dictionary<string, string>();
@@ -42,18 +43,18 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			if (profileToSearch.otherInformation != null) { parameters.Add("otherInformation", profileToSearch.otherInformation); }
 
 			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
-			var x = JsonConvert.DeserializeObject<RefUnitedSearchResponse>(y); //Processed
+			var x = JsonConvert.DeserializeObject<PagedResponse<SearchResult>>(y); //Processed
 			return x.results;
 		}
 
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)  //95%
+		public async Task<IEnumerable<SearchResult>> Search(string nameToSearch)  //95%
 		{
 			//todo test
 
 			var parameters = new Dictionary<string, string>{{"name", nameToSearch}};
 
 			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
-			var x = JsonConvert.DeserializeObject<RefUnitedSearchResponse>(y); //Processed
+			var x = JsonConvert.DeserializeObject<PagedResponse<SearchResult>>(y); //Processed
 			return x.results;
 		}
 
@@ -66,7 +67,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return false;
 		}
 
-		public async Task<RefUnitedProfile> Login(Device device, string username, string password) //75%
+		public async Task<Profile> Login(Device device, string username, string password) //75%
 		{
 			//todo test
 			//todo return true/false if failed/succeeded
