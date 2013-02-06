@@ -27,7 +27,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			RefugeesUnitedService.Login(device, user.RefUnitedUsername, password);
 		}
 
-		public User Register(User user, Device device)
+		public User Register(Profile user, Device device)
 		{
 			throw new NotImplementedException();
 		}
