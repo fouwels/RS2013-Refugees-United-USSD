@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using RS2013.RefugeesUnited.Data;
 using RS2013.RefugeesUnited.Model;
@@ -28,9 +30,14 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return await RefugeesUnitedService.Login(device, user.RefUnitedUsername, password);
 		}
 
-		public async Task<User> Register(Profile user, Device device)
+		public async Task<Profile> Register(Profile user, Device device)
 		{
-			throw new NotImplementedException();
+			return await RefugeesUnitedService.Register(device, user);
+		}
+
+		public Task<IEnumerable<User>> UsersForDevice(Device device)
+		{
+			return await UserRepository.Where(u => u.Device == device);
 		}
 
 		public void DeviceAttach(User user, Device device)

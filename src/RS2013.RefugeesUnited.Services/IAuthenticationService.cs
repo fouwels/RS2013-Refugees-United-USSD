@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using RS2013.RefugeesUnited.Model;
 using RS2013.RefugeesUnited.Model.RefugeesUnited;
 
@@ -21,7 +22,14 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="user"></param>
 		/// <param name="device"></param>
 		/// <returns></returns>
-		Task<User> Register(Profile user, Device device);
+		Task<Profile> Register(Profile user, Device device);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="device"></param>
+		/// <returns></returns>
+		IEnumerable<User> UsersForDevice(Device device);
 
 		/// <summary>
 		/// 
