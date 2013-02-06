@@ -3,12 +3,13 @@
 	public class RefUnitedSearchResult
 	{
 		// ReSharper disable InconsistentNaming
-		public int profileId { get; set; }
-		public string Name { get; set; }
-		public string Tribe { get; set; }
-		public int Age { get; set; }
-		public string CountryOfBirth { get; set; }
-		public string Gender { get; set; }
+		public string profileid { get; set; }
+		public string givenName { get; set; }
+		public string surName { get; set; }
+		public int? age { get; set; }
+		public int? countryOfBirthId { get; set; }
+		public int? genderId { get; set; }
+		public bool isMissingPerson { get; set; }
 		// ReSharper restore InconsistentNaming
 	}
 }

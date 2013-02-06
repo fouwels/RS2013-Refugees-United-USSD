@@ -42,8 +42,8 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			if (profileToSearch.otherInformation != null) { parameters.Add("otherInformation", profileToSearch.otherInformation); }
 
 			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
-			var x = JsonConvert.DeserializeObject<IEnumerable<RefUnitedSearchResult>>(y); //Processed
-			return x;
+			var x = JsonConvert.DeserializeObject<RefUnitedSearchResponse>(y); //Processed
+			return x.results;
 		}
 
 		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)  //95%
@@ -53,8 +53,8 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			var parameters = new Dictionary<string, string>{{"name", nameToSearch}};
 
 			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
-			var x = JsonConvert.DeserializeObject<IEnumerable<RefUnitedSearchResult>>(y); //Processed
-			return x;
+			var x = JsonConvert.DeserializeObject<RefUnitedSearchResponse>(y); //Processed
+			return x.results;
 		}
 
 		public async Task<bool> Logout(string username) //75%
