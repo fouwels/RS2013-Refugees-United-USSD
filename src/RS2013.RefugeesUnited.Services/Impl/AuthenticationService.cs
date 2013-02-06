@@ -35,9 +35,9 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return await RefugeesUnitedService.Register(device, user);
 		}
 
-		public Task<IEnumerable<User>> UsersForDevice(Device device)
+		public IEnumerable<User> UsersForDevice(Device device)
 		{
-			return await UserRepository.Where(u => u.Device == device);
+			return UserRepository.Where(u => u.Device == device);
 		}
 
 		public void DeviceAttach(User user, Device device)

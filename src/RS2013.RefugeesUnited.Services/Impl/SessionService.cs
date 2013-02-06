@@ -18,7 +18,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public Session RetrieveSession(string ussdSessionId)
 		{
-			return SessionRepository.GetAll().FirstOrDefault(s => s.UssdId == ussdSessionId);
+			return SessionRepository.FirstOrDefault(s => s.UssdId == ussdSessionId);
 		}
 	}
 }
