@@ -129,14 +129,20 @@ namespace RS2013.RefugeesUnited.Services.Impl
 				return await sr.ReadToEndAsync();
 		}
 
-		private async Task<string> Api(string apiAction)
+		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> getParameters = null, IEnumerable<KeyValuePair<string, string>> postParameters = null)
 		{
-			return await Api(apiAction, (string)null);
-		}
+			string data = null;
 
-		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters)
-		{
-			return await Api(apiAction, parameters, null);
+			if (postParameters != null)
+			{
+				data = postParameters.Aggregate("", (str, i) => (str
+					+ HttpUtility.UrlEncode(i.Key) + "="
+					+ HttpUtility.UrlEncode(i.Value) + "&"));
+
+				data = data.Substring(0, data.Length - 1);
+			}
+
+			return await Api(apiAction, getParameters, data);
 		}
 
 		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters, string data)
