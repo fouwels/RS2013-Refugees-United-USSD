@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 using RS2013.RefugeesUnited.Model;
 
@@ -24,70 +25,77 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile)
 		{
+			//todo implement.
 			throw new System.NotImplementedException();
 		}
 
 		public async Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch) //WIP 50%
 		{
-			var parameters = new List<string>();
+			//todo Convert Json into refUnitedProfile obj.
+			var parameters = new Dictionary<string, string>();
 
-			if (profileToSearch.surName != null) { parameters.Add("name=" + profileToSearch.givenName + " " + profileToSearch.surName); }
-			else if (profileToSearch.surName == null) { parameters.Add("name=" + profileToSearch.givenName); }
-			if (profileToSearch.genderId != null) { parameters.Add("genderId=" + profileToSearch.genderId); }
-			if (profileToSearch.birthCountryId != null) { parameters.Add("countryOfBirthId=" + profileToSearch.birthCountryId); }
-			if (profileToSearch.lastSighting != null) { parameters.Add("lastSighting=" + profileToSearch.lastSighting); }
-			if (profileToSearch.otherInformation != null) { parameters.Add("otherInformation=" + profileToSearch.otherInformation); }
+			if (profileToSearch.surName != null) { parameters.Add("name", profileToSearch.givenName + " " + profileToSearch.surName); }
+			else if (profileToSearch.surName == null) { parameters.Add("name", profileToSearch.givenName); }
+			if (profileToSearch.genderId != null) { parameters.Add("genderId", profileToSearch.genderId); }
+			if (profileToSearch.birthCountryId != null) { parameters.Add("countryOfBirthId", profileToSearch.birthCountryId); }
+			if (profileToSearch.lastSighting != null) { parameters.Add("lastSighting", profileToSearch.lastSighting); }
+			if (profileToSearch.otherInformation != null) { parameters.Add("otherInformation", profileToSearch.otherInformation); }
 
 			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
+			//var x = JsonConvert.DeserializeObject(y);
 
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)  //0%
 		{
+			//todo implment.
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<bool> Logout(string username)
+		public async Task<bool> Logout(string username) //75%
 		{
-			var y = await GetApi(UrlBuilder("profile/logout/" + username));
-
+			//todo test
+			//todo return true/false if failed/succeeded
+			var y = await GetApi(UrlBuilder("profile/logout/" + username)); //raw input
 			//Return true if succesfull
 			return false;
 		}
 
-		public async Task<bool> Login(string username, string password)
+		public async Task<RefUnitedProfile> Login(Device device, string username, string password) //75%
 		{
-			var parameters = new List<string> { "password=" + password };
-			var y = await GetApi(UrlBuilder("profile/login/" + username, parameters));
+			//todo test
+			//todo return true/false if failed/succeeded
+			var parameters = new[] { new { Key = "password", Value = password } };
+			var y = await GetApi(UrlBuilder("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value)));
 
-			//Return true if successfull
-			return false;
+			return null;
 		}
 
-		public async Task<bool> UserExists(string username)
+		public async Task<bool> UserExists(string username) //95%
 		{
+			//todo test!
 			var y = await GetApi(UrlBuilder(("profile/exists/:" + username)));
 			var x = JsonConvert.DeserializeAnonymousType(y, new { exists = false });
 			return x.exists;
 		}
 
-		public async Task<string> GenerateUsername(string givenName, string surName) //95%
+		public async Task<string> GenerateUsername(string givenName, string surName) //100%
 		{
-			//done: Extract username from api response
-			//done: Return username as string
-			//todo: Error handling << What if null?
+			var parameters =
+				new[]
+					{
+						new { Key = "givenName", Value = givenName },
+						new { Key = "surName", Value = surName }
+					};
 
-			var parameters = new List<string> { "givenName=" + givenName, "surName=" + surName };
-
-			var y = await GetApi(UrlBuilder("usernamegenerator/", parameters)); //rwa input
+			var y = await GetApi(UrlBuilder("usernamegenerator/", parameters.ToDictionary(e => e.Key, e => e.Value)));
 			var x = JsonConvert.DeserializeAnonymousType(y, new { username = string.Empty });
 			return x.username;
 		}
 
 		private async Task<string> GetApi(string url)
 		{
-			//done: Return API data as x << done
 			//todo: Error handling << What if 404?
 
 			var request = (HttpWebRequest)WebRequest.Create(url);
@@ -96,7 +104,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			request.Method = "GET";
 			request.ContentType = "application/json";
 
-			var response = (HttpWebResponse)request.GetResponse();
+			var response = (HttpWebResponse) await request.GetResponseAsync();
 			var responseStream = response.GetResponseStream();
 
 			if (responseStream == null)
@@ -106,10 +114,15 @@ namespace RS2013.RefugeesUnited.Services.Impl
 				return await sr.ReadToEndAsync();
 		}
 
-		private string UrlBuilder(string apiAction, IEnumerable<string> parameters)
+		private string UrlBuilder(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters)
 		{
 			var url = (_apiServerHost + apiAction + "?");
-			return parameters.Aggregate(url, (current, parameter) => (current + parameter + "&"));
+
+			url += parameters.Aggregate("", (str, i) => (str
+				+ HttpUtility.UrlEncode(i.Key) + "="
+				+ HttpUtility.UrlEncode(i.Value) + "&"));
+
+			return url.Substring(0, url.Length - 1);
 		}
 
 		private string UrlBuilder(string apiAction)

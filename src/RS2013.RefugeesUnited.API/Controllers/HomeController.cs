@@ -24,15 +24,15 @@ namespace RS2013.RefugeesUnited.API.Controllers
 			//var testLogin = testService.Login("kaelan.fouwels", "8740");
 			//var testLogout = testService.Logout("kaelanb.fouwels");
 
-			RefUnitedProfile testProfile = new RefUnitedProfile
-				{
-					givenName = "kaelan", 
-					surName = "fouwels",
-					otherInformation = "I like trains",
-					lastSighting = "Test"
-				};
+			//RefUnitedProfile testProfile = new RefUnitedProfile
+			//	{
+			//		givenName = "kaelan", 
+			//		surName = "fouwels",
+			//		otherInformation = "I like trains",
+			//		lastSighting = "Test"
+			//	};
 
-			var testSearch = testService.Search(testProfile);
+			//var testSearch = testService.Search(testProfile);
 
 		    return Content("");
 		}
