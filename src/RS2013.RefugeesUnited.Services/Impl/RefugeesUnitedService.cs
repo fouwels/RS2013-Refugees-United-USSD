@@ -23,15 +23,15 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			_apiServerPassword = ConfigurationManager.AppSettings["ApiServerPassword"];
 		}
 
-		public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile)
+		public async Task<RefUnitedProfile> Register(Device device, RefUnitedProfile profile) //0%
 		{
 			//todo implement.
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch) //WIP 50%
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(RefUnitedProfile profileToSearch) // 95%
 		{
-			//todo Convert Json into refUnitedProfile obj.
+			//test
 			var parameters = new Dictionary<string, string>();
 
 			if (profileToSearch.surName != null) { parameters.Add("name", profileToSearch.givenName + " " + profileToSearch.surName); }
@@ -42,15 +42,19 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			if (profileToSearch.otherInformation != null) { parameters.Add("otherInformation", profileToSearch.otherInformation); }
 
 			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
-			//var x = JsonConvert.DeserializeObject(y);
-
-			throw new System.NotImplementedException();
+			var x = JsonConvert.DeserializeObject<IEnumerable<RefUnitedSearchResult>>(y); //Processed
+			return x;
 		}
 
-		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)  //0%
+		public async Task<IEnumerable<RefUnitedSearchResult>> Search(string nameToSearch)  //95%
 		{
-			//todo implment.
-			throw new System.NotImplementedException();
+			//todo test
+
+			var parameters = new Dictionary<string, string>{{"name", nameToSearch}};
+
+			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
+			var x = JsonConvert.DeserializeObject<IEnumerable<RefUnitedSearchResult>>(y); //Processed
+			return x;
 		}
 
 		public async Task<bool> Logout(string username) //75%
@@ -94,10 +98,8 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return x.username;
 		}
 
-		private async Task<string> GetApi(string url)
+		private async Task<string> GetApi(string url) //100%
 		{
-			//todo: Error handling << What if 404?
-
 			var request = (HttpWebRequest)WebRequest.Create(url);
 			request.PreAuthenticate = true;
 			request.Credentials = new NetworkCredential(_apiServerUsername, _apiServerPassword);
@@ -114,7 +116,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 				return await sr.ReadToEndAsync();
 		}
 
-		private string UrlBuilder(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters)
+		private string UrlBuilder(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters) //100%
 		{
 			var url = (_apiServerHost + apiAction + "?");
 
@@ -125,7 +127,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return url.Substring(0, url.Length - 1);
 		}
 
-		private string UrlBuilder(string apiAction)
+		private string UrlBuilder(string apiAction) //100%
 		{
 			return (_apiServerHost + apiAction);
 		}

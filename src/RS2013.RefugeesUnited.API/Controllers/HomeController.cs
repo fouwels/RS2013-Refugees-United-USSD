@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using RS2013.RefugeesUnited.Model;
 using RS2013.RefugeesUnited.Services;
 using RS2013.RefugeesUnited.Services.Impl;
@@ -17,24 +18,24 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 		public ActionResult Index()
 		{
-            IRefugeesUnitedService testService = new RefugeesUnitedService();
+			IRefugeesUnitedService testService = new RefugeesUnitedService();
 
-		    //var testUsername = testService.GenerateUsername("Kaelan", "Fouwels");
+			//var testUsername = testService.GenerateUsername("Kaelan", "Fouwels");
 			//var testUserExists = testService.UserExists("kaelan.fouwels");
 			//var testLogin = testService.Login("kaelan.fouwels", "8740");
 			//var testLogout = testService.Logout("kaelanb.fouwels");
 
-			//RefUnitedProfile testProfile = new RefUnitedProfile
-			//	{
-			//		givenName = "kaelan", 
-			//		surName = "fouwels",
-			//		otherInformation = "I like trains",
-			//		lastSighting = "Test"
-			//	};
+			RefUnitedProfile testProfile = new RefUnitedProfile
+				{
+					givenName = "kaelan",
+					surName = "fouwels",
+					otherInformation = "I like trains",
+					lastSighting = "Test"
+				};
 
-			//var testSearch = testService.Search(testProfile);
+			var testSearch = testService.Search(testProfile);
 
-		    return Content("");
+			return Content("");
 		}
 	}
 }
