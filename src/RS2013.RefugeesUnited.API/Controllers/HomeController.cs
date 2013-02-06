@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using RS2013.RefugeesUnited.Model;
 using RS2013.RefugeesUnited.Model.RefugeesUnited;
 using RS2013.RefugeesUnited.Services;
 
