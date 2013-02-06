@@ -26,6 +26,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public async Task<Profile> Register(Device device, Profile profile) //0%
 		{
+
 			//todo implement.
 			throw new System.NotImplementedException();
 		}
@@ -72,9 +73,12 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			//todo test
 			//todo return true/false if failed/succeeded
 			var parameters = new[] { new { Key = "password", Value = password } };
+
 			var y = await GetApi(UrlBuilder("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value)));
+			var x = JsonConvert.DeserializeObject<LoginResponse>(y);
 
 			return null;
+			//EG "\n{\"authenticated\":false,\"verificationRequired\":false,\"forcePasswordReset\":false}"
 		}
 
 		public async Task<bool> UserExists(string username) //95%
@@ -115,6 +119,11 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 			using (var sr = new StreamReader(responseStream))
 				return await sr.ReadToEndAsync();
+		}
+
+		private string PostApi(string url)
+		{
+
 		}
 
 		private string UrlBuilder(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters) //100%

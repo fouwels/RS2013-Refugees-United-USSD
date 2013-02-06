@@ -38,6 +38,7 @@
     <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RefugeesUnited\LoginResponse.cs" />
     <Compile Include="RefugeesUnited\Profile.cs" />
     <Compile Include="RefugeesUnited\PagedResponse.cs" />
     <Compile Include="RefugeesUnited\SearchResult.cs" />
