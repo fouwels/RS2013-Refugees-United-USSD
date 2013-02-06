@@ -46,6 +46,7 @@ namespace RS2013.RefugeesUnited.API
 			kernel.Bind<IUserRepository>().To<UserRepository>();
 
 			kernel.Bind<IRefugeesUnitedService>().To<RefugeesUnitedService>();
+			kernel.Bind<IAuthenticationService>().To<AuthenticationService>();
 			kernel.Bind<ISessionService>().To<SessionService>();
 
 			return kernel;

@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAuthenticationService.cs" />
+    <Compile Include="Impl\AuthenticationService.cs" />
     <Compile Include="Impl\RefugeesUnitedService.cs" />
     <Compile Include="Impl\SessionService.cs" />
     <Compile Include="IRefugeesUnitedService.cs" />

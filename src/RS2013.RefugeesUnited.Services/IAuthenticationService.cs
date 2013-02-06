@@ -1,4 +1,5 @@
 ﻿using RS2013.RefugeesUnited.Model;
+using RS2013.RefugeesUnited.Model.RefugeesUnited;
 
 namespace RS2013.RefugeesUnited.Services
 {
@@ -11,7 +12,7 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="device">Device request came from</param>
 		/// <param name="password">Password given by user</param>
 		/// <returns></returns>
-		User Authenticate(User user, Device device, string password);
+		Profile Authenticate(User user, Device device, string password);
 
 		/// <summary>
 		/// 
@@ -19,7 +20,7 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="user"></param>
 		/// <param name="device"></param>
 		/// <returns></returns>
-		User Register(User user, Device device);
+		User Register(Profile user, Device device);
 
 		/// <summary>
 		/// 
@@ -38,12 +39,14 @@ namespace RS2013.RefugeesUnited.Services
 		/// 
 		/// </summary>
 		/// <param name="user"></param>
-		void Blacklist(User user);
+		/// <param name="reason"></param>
+		void Blacklist(User user, string reason);
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="device"></param>
-		void Blacklist(Device device);
+		/// <param name="reason"></param>
+		void Blacklist(Device device, string reason);
 	}
 }
