@@ -73,8 +73,10 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			//todo return true/false if failed/succeeded
 			var parameters = new[] { new { Key = "password", Value = password } };
 			var y = await Api("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value));
+			var x = JsonConvert.DeserializeObject<LoginResponse>(y);
 
 			return null;
+			//EG "\n{\"authenticated\":false,\"verificationRequired\":false,\"forcePasswordReset\":false}"
 		}
 
 		public async Task<bool> UserExists(string username) //95%
