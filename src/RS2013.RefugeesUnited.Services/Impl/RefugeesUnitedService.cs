@@ -42,7 +42,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			if (profileToSearch.lastSighting != null) { parameters.Add("lastSighting", profileToSearch.lastSighting); }
 			if (profileToSearch.otherInformation != null) { parameters.Add("otherInformation", profileToSearch.otherInformation); }
 
-			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
+			var y = await Api("search/", parameters); //Raw data
 			var x = JsonConvert.DeserializeObject<PagedResponse<SearchResult>>(y); //Processed
 			return x.results;
 		}
@@ -53,7 +53,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 			var parameters = new Dictionary<string, string>{{"name", nameToSearch}};
 
-			var y = await GetApi(UrlBuilder("search/", parameters)); //Raw data
+			var y = await Api("search/", parameters); //Raw data
 			var x = JsonConvert.DeserializeObject<PagedResponse<SearchResult>>(y); //Processed
 			return x.results;
 		}
@@ -62,7 +62,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 		{
 			//todo test
 			//todo return true/false if failed/succeeded
-			var y = await GetApi(UrlBuilder("profile/logout/" + username)); //raw input
+			var y = await Api("profile/logout/" + username); //raw input
 			//Return true if succesfull
 			return false;
 		}
@@ -72,7 +72,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			//todo test
 			//todo return true/false if failed/succeeded
 			var parameters = new[] { new { Key = "password", Value = password } };
-			var y = await GetApi(UrlBuilder("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value)));
+			var y = await Api("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value));
 
 			return null;
 		}
@@ -80,7 +80,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 		public async Task<bool> UserExists(string username) //95%
 		{
 			//todo test!
-			var y = await GetApi(UrlBuilder(("profile/exists/:" + username)));
+			var y = await Api(("profile/exists/:" + username));
 			var x = JsonConvert.DeserializeAnonymousType(y, new { exists = false });
 			return x.exists;
 		}
@@ -94,18 +94,28 @@ namespace RS2013.RefugeesUnited.Services.Impl
 						new { Key = "surName", Value = surName }
 					};
 
-			var y = await GetApi(UrlBuilder("usernamegenerator/", parameters.ToDictionary(e => e.Key, e => e.Value)));
+			var y = await Api("usernamegenerator/", parameters.ToDictionary(e => e.Key, e => e.Value));
 			var x = JsonConvert.DeserializeAnonymousType(y, new { username = string.Empty });
 			return x.username;
 		}
 
-		private async Task<string> GetApi(string url) //100%
+		private async Task<string> Api(string apiAction, string data)
 		{
+			var url = (_apiServerHost + apiAction);
+
 			var request = (HttpWebRequest)WebRequest.Create(url);
 			request.PreAuthenticate = true;
 			request.Credentials = new NetworkCredential(_apiServerUsername, _apiServerPassword);
-			request.Method = "GET";
 			request.ContentType = "application/json";
+			request.Method = "GET";
+
+			if (data != null)
+			{
+				request.Method = "POST";
+
+				using (var sw = new StreamWriter(request.GetRequestStream()))
+					await sw.WriteAsync(data);
+			}
 
 			var response = (HttpWebResponse) await request.GetResponseAsync();
 			var responseStream = response.GetResponseStream();
@@ -117,22 +127,23 @@ namespace RS2013.RefugeesUnited.Services.Impl
 				return await sr.ReadToEndAsync();
 		}
 
-		private string UrlBuilder(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters) //100%
+		private async Task<string> Api(string apiAction)
 		{
-			var url = (_apiServerHost + apiAction + "?");
-
-			url += parameters.Aggregate("", (str, i) => (str
-				+ HttpUtility.UrlEncode(i.Key) + "="
-				+ HttpUtility.UrlEncode(i.Value) + "&"));
-
-			return url.Substring(0, url.Length - 1);
+			return await Api(apiAction, (string)null);
 		}
 
-		private string UrlBuilder(string apiAction) //100%
+		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters)
 		{
-			return (_apiServerHost + apiAction);
+			return await Api(apiAction, parameters, null);
 		}
 
-		//EG: http://api.ru.istykker.dk/usernamegenerator/?givenName=kaelan&surName=fouwels
+		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters, string data)
+		{
+			apiAction += parameters.Aggregate("", (str, i) => (str
+				 + HttpUtility.UrlEncode(i.Key) + "="
+				 + HttpUtility.UrlEncode(i.Value) + "&"));
+
+			return await Api(apiAction.Substring(0, apiAction.Length - 1), data);
+		}
 	}
 }
