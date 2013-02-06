@@ -1,4 +1,5 @@
-﻿using RS2013.RefugeesUnited.Model;
+﻿using System.Threading.Tasks;
+using RS2013.RefugeesUnited.Model;
 using RS2013.RefugeesUnited.Model.RefugeesUnited;
 
 namespace RS2013.RefugeesUnited.Services
@@ -12,7 +13,7 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="device">Device request came from</param>
 		/// <param name="password">Password given by user</param>
 		/// <returns></returns>
-		Profile Authenticate(User user, Device device, string password);
+		Task<Profile> Authenticate(User user, Device device, string password);
 
 		/// <summary>
 		/// 
@@ -20,7 +21,7 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="user"></param>
 		/// <param name="device"></param>
 		/// <returns></returns>
-		User Register(Profile user, Device device);
+		Task<User> Register(Profile user, Device device);
 
 		/// <summary>
 		/// 

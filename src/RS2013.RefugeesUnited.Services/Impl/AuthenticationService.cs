@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using RS2013.RefugeesUnited.Data;
 using RS2013.RefugeesUnited.Model;
 using RS2013.RefugeesUnited.Model.RefugeesUnited;
@@ -22,12 +23,12 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			RefugeesUnitedService = refugeesUnitedService;
 		}
 
-		public Profile Authenticate(User user, Device device, string password)
+		public async Task<Profile> Authenticate(User user, Device device, string password)
 		{
-			RefugeesUnitedService.Login(device, user.RefUnitedUsername, password);
+			return await RefugeesUnitedService.Login(device, user.RefUnitedUsername, password);
 		}
 
-		public User Register(Profile user, Device device)
+		public async Task<User> Register(Profile user, Device device)
 		{
 			throw new NotImplementedException();
 		}
