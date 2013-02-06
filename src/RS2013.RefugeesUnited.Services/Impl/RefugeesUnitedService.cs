@@ -26,7 +26,37 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public async Task<Profile> Register(Device device, Profile profile) //0%
 		{
-			//todo implement.
+			var postParameters = new Dictionary<string, string>
+				{
+					{"username",				profile.username},
+					{"password",				profile.password},
+					{"primaryEmail",			profile.primaryEmail},
+					{"referralId",				profile.referralId},
+					{"genderId",				profile.genderId},
+					{"givenName",				profile.givenName},
+					{"surName",					profile.surName},
+					{"birthCountryId",			profile.birthCountryId},
+					{"owningMonitorProfileId",	profile.owningMonitorProfileId},
+					{"owningPartnerProfileId",	profile.owningPartnerProfileId},
+					{"dialCode",				profile.dialCode},
+					{"cellPhone",				device.Number},
+					{"clientCountryId",			profile.clientCountryId},
+					{"lastSighting",			profile.lastSighting},
+					{"nickName",				profile.nickName},
+					{"otherInformation",		profile.otherInformation},
+					{"otherName",				profile.otherName},
+					{"tribe",					profile.tribe},
+					{"alternateEmail",			profile.alternateEmail},
+					{"homeTown",				profile.homeTown},
+					{"preferredLanguageId",		profile.preferredLanguageId},
+					{"userProfileStateId",		profile.userProfileStateId},
+					{"actingUserProfileId",		profile.actingUserProfileId},
+					{"assistingUserProfileId",	profile.assistingUserProfileId},
+					{"sessionId",				profile.sessionId},
+				};
+
+			var y = await Api("profile/", postParameters: postParameters);
+
 			throw new System.NotImplementedException();
 		}
 
