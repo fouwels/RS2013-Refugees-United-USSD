@@ -161,27 +161,34 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> getParameters = null, IEnumerable<KeyValuePair<string, string>> postParameters = null)
 		{
-			string data = null;
+			string postData = null;
 
 			if (postParameters != null)
 			{
-				data = postParameters.Aggregate("", (str, i) => (str
+				postData = postParameters.Aggregate("", (str, i) => (str
 					+ HttpUtility.UrlEncode(i.Key) + "="
 					+ HttpUtility.UrlEncode(i.Value) + "&"));
 
-				data = data.Substring(0, data.Length - 1);
+				postData = postData.Substring(0, postData.Length - 1);
 			}
 
-			return await Api(apiAction, getParameters, data);
+			return await Api(apiAction, getParameters, postData);
 		}
 
-		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> parameters, string data)
+		private async Task<string> Api(string apiAction, IEnumerable<KeyValuePair<string, string>> getParameters, string postData)
 		{
-			apiAction += parameters.Aggregate("", (str, i) => (str
-				 + HttpUtility.UrlEncode(i.Key) + "="
-				 + HttpUtility.UrlEncode(i.Value) + "&"));
+			var getData = string.Empty;
 
-			return await Api(apiAction.Substring(0, apiAction.Length - 1), data);
+			if (getParameters != null)
+			{
+				getData = getParameters.Aggregate("?", (str, i) => (str
+				  + HttpUtility.UrlEncode(i.Key) + "="
+				  + HttpUtility.UrlEncode(i.Value) + "&"));
+
+				getData = getData.Substring(0, getData.Length - 1);
+			}
+
+			return await Api(apiAction + getData, postData);
 		}
 	}
 }
