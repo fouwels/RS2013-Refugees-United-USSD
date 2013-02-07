@@ -17,4 +17,4 @@ It has been built against the API documentation from Global USSD. Due to short n
 This is something we're looking into to resolve, but in the meantime the code can only be reviewed and run with debug values. However, it will plug straight into Global USSD's systems with very little effort, and switching to another provider should be relatively trivial.
 
 ###Command Flow
-![Flowchart](/flowchartSmall.png)
+![Flowchart](http://i.imgur.com/CWNZQyQ.png)
