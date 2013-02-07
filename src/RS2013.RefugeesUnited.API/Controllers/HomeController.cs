@@ -79,24 +79,44 @@ namespace RS2013.RefugeesUnited.API.Controllers
 			var locationLongitude = Request.Headers["SADS-Location-Longitude"];
 			var locationTimezone = Request.Headers["SADS-Location-Timezone"];
 
+			var myResponse = "";
 			var mySession = new Session();
+
+			mySession.State = SessionState.MainMenu; //todo <-- get from request.cookies?
+
 			switch (mySession.State)
 			{
 				case SessionState.Terminated:
+					myResponse = 
+						"Your session has been terminated. Please start again";
 					break;
 				case SessionState.AuthenticationOptions:
+					myResponse =
+						"[AuthOptions]\n)";
 					break;
 				case SessionState.ConnectAccount:
+					myResponse =
+						"[Connect Account]\n)";
 					break;
 				case SessionState.Register:
+					myResponse =
+						"[Register]\n)";
 					break;
 				case SessionState.Login:
+					myResponse =
+						"[Login]\nEnter choice\n1)Login with login code\n2) Connect account - choose this if first login from device";
 					break;
 				case SessionState.LoginCode:
+					myResponse =
+						"Enter your login code";
 					break;
 				case SessionState.MainMenu:
+					myResponse = 
+						"[Main Menu]\nEnter choice\n1) Login\n2) Register\n3) Connect Account";
 					break;
 				default:
+					myResponse = 
+						"You somehow broke the session state, have a cookie";
 					break;
 			}
 			return Content("");
