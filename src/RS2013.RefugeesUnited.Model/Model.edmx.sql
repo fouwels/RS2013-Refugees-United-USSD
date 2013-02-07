@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 02/04/2013 23:28:29
+-- Date Created: 02/06/2013 17:55:22
 -- Generated from EDMX file: \\vmware-host\Shared Folders\Projects\RefUnited\src\RS2013.RefugeesUnited.Model\Model.edmx
 -- --------------------------------------------------
 
@@ -69,7 +69,8 @@ CREATE TABLE [dbo].[Sessions] (
     [ActivityTimestamp] datetime  NOT NULL,
     [State] tinyint  NOT NULL,
     [StateJson] nvarchar(max)  NULL,
-    [User_Id] bigint  NULL
+    [User_Id] bigint  NULL,
+    [Device_Id] bigint  NOT NULL
 );
 GO
 
@@ -125,6 +126,20 @@ ADD CONSTRAINT [FK_UserSession]
 CREATE INDEX [IX_FK_UserSession]
 ON [dbo].[Sessions]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [Device_Id] in table 'Sessions'
+ALTER TABLE [dbo].[Sessions]
+ADD CONSTRAINT [FK_DeviceSession]
+    FOREIGN KEY ([Device_Id])
+    REFERENCES [dbo].[Devices]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DeviceSession'
+CREATE INDEX [IX_FK_DeviceSession]
+ON [dbo].[Sessions]
+    ([Device_Id]);
 GO
 
 -- --------------------------------------------------

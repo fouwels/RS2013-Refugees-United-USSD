@@ -18,11 +18,13 @@ namespace RS2013.RefugeesUnited.Model
 		public Device()
 		{
 			Users = new HashSet<User>();
+			Sessions = new HashSet<Session>();
 		}
 
 		public long Id { get; private set; }
 		public string Number { get; set; }
 		public string BlacklistReason { get; set; }
 		public virtual ICollection<User> Users { get; set; }
+		public virtual ICollection<Session> Sessions { get; set; }
 	}
 }

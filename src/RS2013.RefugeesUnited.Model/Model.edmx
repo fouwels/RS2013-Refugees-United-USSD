@@ -17,6 +17,10 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Session" EntitySet="Sessions" />
     </AssociationSet>
+    <AssociationSet Name="DeviceSession" Association="Model.Store.DeviceSession">
+      <End Role="Device" EntitySet="Devices" />
+      <End Role="Session" EntitySet="Sessions" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Devices">
     <Key>
@@ -42,12 +46,12 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UssdId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="StartTimestamp" Type="datetime" Nullable="false" />
     <Property Name="ActivityTimestamp" Type="datetime" Nullable="false" />
     <Property Name="State" Type="tinyint" Nullable="false" />
     <Property Name="StateJson" Type="nvarchar(max)" Nullable="true" />
     <Property Name="User_Id" Type="bigint" Nullable="true" />
+    <Property Name="Device_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <Association Name="DeviceUser">
     <End Role="Device" Type="Model.Store.Devices" Multiplicity="0..1" />
@@ -73,6 +77,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="DeviceSession">
+    <End Role="Device" Type="Model.Store.Devices" Multiplicity="1" />
+    <End Role="Session" Type="Model.Store.Sessions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="Device_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -89,6 +105,10 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Session" EntitySet="Sessions" />
           </AssociationSet>
+          <AssociationSet Name="DeviceSession" Association="Model.DeviceSession">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Session" EntitySet="Sessions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Device">
           <Key>
@@ -102,6 +122,7 @@
             </Documentation>
           </Property>
           <NavigationProperty Name="Users" Relationship="Model.DeviceUser" FromRole="Device" ToRole="User" />
+          <NavigationProperty Name="Sessions" Relationship="Model.DeviceSession" FromRole="Device" ToRole="Session" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -124,7 +145,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" cg:SetterAccess="Private" />
-          <Property Type="String" Name="UssdId" Nullable="false" />
           <Property Type="DateTime" Name="StartTimestamp" Nullable="false" />
           <Property Type="DateTime" Name="ActivityTimestamp" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Model.UserSession" FromRole="Session" ToRole="User" />
@@ -134,6 +154,7 @@
             </Documentation>
           </Property>
           <Property Type="String" Name="StateJson" Nullable="true" />
+          <NavigationProperty Name="Device" Relationship="Model.DeviceSession" FromRole="Session" ToRole="Device" />
         </EntityType>
         <Association Name="DeviceUser">
           <End Type="Model.Device" Role="Device" Multiplicity="0..1" />
@@ -152,6 +173,10 @@
           <Member Name="LoginCode" Value="5" />
           <Member Name="MainMenu" Value="6" />
         </EnumType>
+        <Association Name="DeviceSession">
+          <End Type="Model.Device" Role="Device" Multiplicity="1" />
+          <End Type="Model.Session" Role="Session" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -182,7 +207,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model.Session)">
         <MappingFragment StoreEntitySet="Sessions">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UssdId" ColumnName="UssdId" />
           <ScalarProperty Name="StartTimestamp" ColumnName="StartTimestamp" />
           <ScalarProperty Name="ActivityTimestamp" ColumnName="ActivityTimestamp" />
           <ScalarProperty Name="State" ColumnName="State" />
@@ -207,6 +231,14 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
       <Condition ColumnName="User_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DeviceSession" TypeName="Model.DeviceSession" StoreEntitySet="Sessions">
+      <EndProperty Name="Device">
+        <ScalarProperty Name="Id" ColumnName="Device_Id" />
+      </EndProperty>
+      <EndProperty Name="Session">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

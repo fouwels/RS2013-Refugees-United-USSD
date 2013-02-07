@@ -6,10 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="6aeac00918af46ba842693079a3d2c1e" Name="Diagram1" >
         <EntityTypeShape EntityType="Model.Device" Width="1.5" PointX="0.875" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="3.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="3.125" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Session" Width="1.5" PointX="5.375" PointY="0.75" />
         <AssociationConnector Association="Model.DeviceUser" />
         <AssociationConnector Association="Model.UserSession" />
+        <AssociationConnector Association="Model.DeviceSession" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

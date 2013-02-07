@@ -22,5 +22,6 @@ namespace RS2013.RefugeesUnited.Model
 		public SessionState State { get; set; }
 		public string StateJson { get; set; }
 		public virtual User User { get; set; }
+		public virtual Device Device { get; set; }
 	}
 }
