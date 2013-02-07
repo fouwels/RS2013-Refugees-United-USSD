@@ -42,6 +42,7 @@
     <Compile Include="RefugeesUnited\Profile.cs" />
     <Compile Include="RefugeesUnited\PagedResponse.cs" />
     <Compile Include="RefugeesUnited\SearchResult.cs" />
+    <Compile Include="Session.Partial.cs" />
     <Compile Include="SessionState.cs" />
     <Compile Include="Device.cs">
       <DependentUpon>Model.tt</DependentUpon>
