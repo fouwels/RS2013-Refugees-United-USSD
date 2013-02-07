@@ -24,6 +24,7 @@ namespace RS2013.RefugeesUnited.API.Controllers
 			//var testUserExists = await RefugeesUnitedService.UserExists("kaelanc.fouwelsc");
 			//var testLogin = await RefugeesUnitedService.Login(null, "kaelanc.fouwelsc", "1234");
 			//var testLogout = await RefugeesUnitedService.Logout("kaelanc.fouwelsc");
+			//var testSearch = await RefugeesUnitedService.Search(testProfile);
 
 			var testProfile = new Profile
 			{
@@ -34,11 +35,9 @@ namespace RS2013.RefugeesUnited.API.Controllers
 				otherInformation = "I like trains",
 				lastSighting = "Test"
 			};
-
-			//var testSearch = await RefugeesUnitedService.Search(testProfile);
-
 			var testDevice = new Device {Number = "+447842073150"};
-			var testRegister = await RefugeesUnitedService.Register(testDevice, testProfile);
+
+			//var testRegister = await RefugeesUnitedService.Register(testDevice, testProfile); <-- Problematic
 
 			return Content("");
 		}
