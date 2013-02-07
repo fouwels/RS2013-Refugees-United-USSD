@@ -51,7 +51,8 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 			var testLogout = await RefugeesUnitedService.Logout("kaelanc.fouwelsc");
 				//Attempt to logout said user
-
+			
+			//Break here
 			return Content("");
 		}
 
