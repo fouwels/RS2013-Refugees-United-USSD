@@ -39,5 +39,31 @@ namespace RS2013.RefugeesUnited.API.Controllers
 			var testRegister = await RefugeesUnitedService.Register(testDevice, testProfile);
 			return Content("");
 		}
+
+		[HttpPost]
+		public async Task<ActionResult> GlobalUSSD(
+			string subscriber, string protocol,
+			string sadsSmsMessage = null, string sadsListSegment = null,
+			string sadsTextSegment = null, string sadsErrorMessage = null)
+		{
+			var connector = Request.Headers["X-Connector"]; // wap/sip/http/smpp
+			var connectorDescription = Request.Headers["X-Connector-Description"];
+			var userAgent = Request.UserAgent;
+			var host = Request.Headers["Host"];
+			var contentType = Request.ContentType;
+			var ussdMessage = Request.Headers["WHOISD-USSD-MESSAGE"]; // USSD user reply
+			var ussdAddress = Request.Headers["WHOISD-USSD-ADDRESS"];
+			var cookie = Request.Cookies; // To identify session
+			var locationCountry = Request.Headers["SADS-Location-Country-Name"];
+			var locationCity = Request.Headers["SADS-Location-City-Name"];
+			var locationCountryId = Request.Headers["SADS-Location-Country-Id"];
+			var locationCityId = Request.Headers["SADS-Location-City-Id"];
+			var locationVLR = Request.Headers["SADS-Location-VLR"];
+			var locationLatitude = Request.Headers["SADS-Location-Latitude"];
+			var locationLongitude = Request.Headers["SADS-Location-Longitude"];
+			var locationTimezone = Request.Headers["SADS-Location-Timezone"];
+
+			return Content("");
+		}
 	}
 }
