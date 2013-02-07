@@ -16,7 +16,6 @@ namespace RS2013.RefugeesUnited.Model
 	public partial class Session : IEntity
 	{
 		public long Id { get; private set; }
-		public string UssdId { get; set; }
 		public System.DateTime StartTimestamp { get; set; }
 		public System.DateTime ActivityTimestamp { get; set; }
 		public SessionState State { get; set; }

@@ -64,7 +64,6 @@ GO
 -- Creating table 'Sessions'
 CREATE TABLE [dbo].[Sessions] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [UssdId] nvarchar(max)  NOT NULL,
     [StartTimestamp] datetime  NOT NULL,
     [ActivityTimestamp] datetime  NOT NULL,
     [State] tinyint  NOT NULL,
