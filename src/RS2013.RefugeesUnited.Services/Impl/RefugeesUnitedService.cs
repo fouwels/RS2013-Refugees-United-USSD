@@ -121,7 +121,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			var y = await Api("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value));
 			var x = JsonConvert.DeserializeObject<LoginResponse>(y);
 
-			return null;			//*Again, don't know what data returns when successfully logged in. ProfileID hopefully? Can't test.
+			return null;			//Don't know what data returns when logged is SUCCESSFULL - Would need ProfileID to get the profile.
 
 			//EG "\n{\"authenticated\":false,\"verificationRequired\":false,\"forcePasswordReset\":false}"
 		}
