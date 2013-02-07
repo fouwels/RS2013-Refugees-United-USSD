@@ -79,6 +79,26 @@ namespace RS2013.RefugeesUnited.API.Controllers
 			var locationLongitude = Request.Headers["SADS-Location-Longitude"];
 			var locationTimezone = Request.Headers["SADS-Location-Timezone"];
 
+			var mySession = new Session();
+			switch (mySession.State)
+			{
+				case SessionState.Terminated:
+					break;
+				case SessionState.AuthenticationOptions:
+					break;
+				case SessionState.ConnectAccount:
+					break;
+				case SessionState.Register:
+					break;
+				case SessionState.Login:
+					break;
+				case SessionState.LoginCode:
+					break;
+				case SessionState.MainMenu:
+					break;
+				default:
+					break;
+			}
 			return Content("");
 		}
 	}
