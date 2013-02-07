@@ -20,24 +20,37 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 		public async Task<ActionResult> Index()
 		{
-			//var testUsername = await RefugeesUnitedService.GenerateUsername("Kaelanc", "Fouwelsc");
-			//var testUserExists = await RefugeesUnitedService.UserExists("kaelanc.fouwelsc");
-			//var testLogin = await RefugeesUnitedService.Login(null, "kaelanc.fouwelsc", "1234");
-			//var testLogout = await RefugeesUnitedService.Logout("kaelanc.fouwelsc");
-			//var testSearch = await RefugeesUnitedService.Search(testProfile);
-
+				//Test Data
 			var testProfile = new Profile
 			{
-				username = "kaelanc.fouwelsc",
+				username = "",
 				givenName = "kaelanc",
 				surName = "fouwelsc",
 				password = "1234",
 				otherInformation = "I like trains",
 				lastSighting = "Test"
 			};
-			var testDevice = new Device {Number = "+447842073150"};
+			var testDevice = new Device { Number = "+447842073150" };
+				//Test Data
 
-			//var testRegister = await RefugeesUnitedService.Register(testDevice, testProfile); <-- Problematic
+			var testUsername = await RefugeesUnitedService.GenerateUsername(testProfile.givenName, testProfile.surName);
+				testProfile.username = testUsername;
+				//Get API to generate a Username
+
+			var testUserExists = await RefugeesUnitedService.UserExists(testProfile.username);
+				//Check if user exists
+
+			//var testRegister = await RefugeesUnitedService.Register(testDevice, testProfile); // todo <-- Problematic
+				//Attempt to register said user
+
+			var testLogin = await RefugeesUnitedService.Login(testDevice, "kaelanc.fouwelsc", "1234");
+				//Atempt to login said user
+
+			var testSearch = await RefugeesUnitedService.Search(testProfile);
+				//Search for said user
+
+			var testLogout = await RefugeesUnitedService.Logout("kaelanc.fouwelsc");
+				//Attempt to logout said user
 
 			return Content("");
 		}
