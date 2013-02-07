@@ -4,6 +4,18 @@ namespace RS2013.RefugeesUnited.Services
 {
 	public interface ISessionService
 	{
-		Session RetrieveSession(string ussdSessionId);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		Session RetrieveSession(long id);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="number"></param>
+		/// <returns></returns>
+		Session CreateSession(string number);
 	}
 }
