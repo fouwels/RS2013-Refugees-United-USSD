@@ -39,6 +39,13 @@ namespace RS2013.RefugeesUnited.Services
 		Task<bool> UserExists(string username);
 
 		/// <summary>
+		/// Gets users profile from profile ID
+		/// </summary>
+		/// <param name="profileId">Profile ID to lookup</param>
+		/// <returns>Profile of user</returns>
+		Task<Profile> GetProfile(string profileId);
+
+		/// <summary>
 		/// Generates available username based on name given
 		/// </summary>
 		/// <param name="givenName">Given/first name of user</param>

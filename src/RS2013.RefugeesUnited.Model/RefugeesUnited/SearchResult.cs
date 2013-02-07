@@ -1,4 +1,4 @@
-namespace RS2013.RefugeesUnited.Model.RefugeesUnited
+﻿namespace RS2013.RefugeesUnited.Model.RefugeesUnited
 {
 	public class SearchResult
 	{

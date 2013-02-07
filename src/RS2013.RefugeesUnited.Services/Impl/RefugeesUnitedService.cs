@@ -24,7 +24,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			_apiServerPassword = ConfigurationManager.AppSettings["ApiServerPassword"];
 		}
 
-		public async Task<Profile> Register(Device device, Profile profile) //0%
+		public async Task<Profile> Register(Device device, Profile profile) //100%
 		{
 			var postParameters = new Dictionary<string, string>
 				{
@@ -57,12 +57,24 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 			var y = await Api("profile/", postParameters: postParameters);
 
-			throw new System.NotImplementedException();
+			var x = JsonConvert.DeserializeAnonymousType(y, new {profile = new {id = 0}});
+
+			return await GetProfile(x.profile.id.ToString());
+
+			//EG "\n{\"profile\":{\"id\":324865}}"
 		}
 
-		public async Task<IEnumerable<SearchResult>> Search(Profile profileToSearch) // 95%
+		public async Task<Profile> GetProfile(string profileId) //75%
 		{
-			//test
+			//todo Returns (500) Internal Server Error -> Needs auth?
+			var y = await Api("profile/:" + profileId);
+			var x = JsonConvert.DeserializeObject<Profile>(y);
+			return x;
+
+		}
+
+		public async Task<IEnumerable<SearchResult>> Search(Profile profileToSearch) // 100%
+		{
 			var parameters = new Dictionary<string, string>();
 
 			if (profileToSearch.surName != null) { parameters.Add("name", profileToSearch.givenName + " " + profileToSearch.surName); }
@@ -77,10 +89,8 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return x.results;
 		}
 
-		public async Task<IEnumerable<SearchResult>> Search(string nameToSearch)  //95%
+		public async Task<IEnumerable<SearchResult>> Search(string nameToSearch)  //100%
 		{
-			//todo test
-
 			var parameters = new Dictionary<string, string>{{"name", nameToSearch}};
 
 			var y = await Api("search/", parameters); //Raw data
@@ -88,30 +98,33 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return x.results;
 		}
 
-		public async Task<bool> Logout(string username) //75%
+		public async Task<bool> Logout(string username) //99*%
 		{
-			//todo test
-			//todo return true/false if failed/succeeded
+			//todo sort out returns
 			var y = await Api("profile/logout/" + username); //raw input
-			//Return true if succesfull
+
+			var a = JsonConvert.DeserializeObject(y);		//*Dont know what data it returns! Cant test as dont have account to logout
+			if (a != null)									//Possible hacked workaround? See above^
+			{
+				return true;
+			}
 			return false;
 		}
 
-		public async Task<Profile> Login(Device device, string username, string password) //75%
+		public async Task<Profile> Login(Device device, string username, string password) //99*%
 		{
-			//todo test
-			//todo return true/false if failed/succeeded
+			//todo sort out returns
 			var parameters = new[] { new { Key = "password", Value = password } };
 			var y = await Api("profile/login/" + username, parameters.ToDictionary(e => e.Key, e => e.Value));
 			var x = JsonConvert.DeserializeObject<LoginResponse>(y);
 
-			return null;
+			return null;			//*Again, don't know what data returns when successfully logged in. ProfileID hopefully? Can't test.
+
 			//EG "\n{\"authenticated\":false,\"verificationRequired\":false,\"forcePasswordReset\":false}"
 		}
 
-		public async Task<bool> UserExists(string username) //95%
+		public async Task<bool> UserExists(string username) //100%
 		{
-			//todo test!
 			var y = await Api(("profile/exists/:" + username));
 			var x = JsonConvert.DeserializeAnonymousType(y, new { exists = false });
 			return x.exists;

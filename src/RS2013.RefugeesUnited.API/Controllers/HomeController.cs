@@ -20,15 +20,17 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 		public async Task<ActionResult> Index()
 		{
-			//var testUsername = await RefugeesUnitedService.GenerateUsername("Kaelan", "Fouwels");
-			//var testUserExists = await RefugeesUnitedService.UserExists("kaelan.fouwels");
-			//var testLogin = await RefugeesUnitedService.Login(null, "kaelan.fouwels", "8740");
-			//var testLogout = await RefugeesUnitedService.Logout("kaelanb.fouwels");
+			//var testUsername = await RefugeesUnitedService.GenerateUsername("Kaelanc", "Fouwelsc");
+			//var testUserExists = await RefugeesUnitedService.UserExists("kaelanc.fouwelsc");
+			//var testLogin = await RefugeesUnitedService.Login(null, "kaelanc.fouwelsc", "1234");
+			//var testLogout = await RefugeesUnitedService.Logout("kaelanc.fouwelsc");
 
 			var testProfile = new Profile
 			{
-				givenName = "kaelan",
-				surName = "fouwels",
+				username = "kaelanc.fouwelsc",
+				givenName = "kaelanc",
+				surName = "fouwelsc",
+				password = "1234",
 				otherInformation = "I like trains",
 				lastSighting = "Test"
 			};
@@ -37,6 +39,7 @@ namespace RS2013.RefugeesUnited.API.Controllers
 
 			var testDevice = new Device {Number = "+447842073150"};
 			var testRegister = await RefugeesUnitedService.Register(testDevice, testProfile);
+
 			return Content("");
 		}
 	}
