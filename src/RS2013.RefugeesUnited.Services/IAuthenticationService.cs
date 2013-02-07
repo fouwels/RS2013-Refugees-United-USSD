@@ -27,6 +27,13 @@ namespace RS2013.RefugeesUnited.Services
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="phone"></param>
+		/// <returns></returns>
+		Device DeviceForPhone(string phone);
+
+		/// <summary>
+		/// 
+		/// </summary>
 		/// <param name="device"></param>
 		/// <returns></returns>
 		IEnumerable<User> UsersForDevice(Device device);

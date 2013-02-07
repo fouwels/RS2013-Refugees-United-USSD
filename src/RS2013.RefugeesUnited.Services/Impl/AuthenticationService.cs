@@ -35,6 +35,13 @@ namespace RS2013.RefugeesUnited.Services.Impl
 			return await RefugeesUnitedService.Register(device, user);
 		}
 
+		public Device DeviceForPhone(string phone)
+		{
+			var device = DeviceRepository.SingleOrDefault(d => d.Number == phone);
+
+			return device ?? DeviceRepository.Create(new Device { Number = phone });
+		}
+
 		public IEnumerable<User> UsersForDevice(Device device)
 		{
 			return UserRepository.Where(u => u.Device == device);
