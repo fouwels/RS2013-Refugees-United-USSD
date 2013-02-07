@@ -21,7 +21,7 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public Session RetrieveSession(long id)
 		{
-			return SessionRepository.FirstOrDefault(s => s.Id == id);
+			return SessionRepository.Get(id);
 		}
 
 		public Session CreateSession(string number)
