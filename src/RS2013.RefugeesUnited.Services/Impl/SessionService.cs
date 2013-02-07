@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using RS2013.RefugeesUnited.Data;
 using RS2013.RefugeesUnited.Model;
 
@@ -27,6 +26,10 @@ namespace RS2013.RefugeesUnited.Services.Impl
 		public Session CreateSession(string number)
 		{
 			var device = AuthenticationService.DeviceForPhone(number);
+
+			if (device.BlacklistReason != null)
+				throw new UnauthorizedAccessException();
+
 			return SessionRepository.Create(new Session { Device = device });
 		}
 	}
