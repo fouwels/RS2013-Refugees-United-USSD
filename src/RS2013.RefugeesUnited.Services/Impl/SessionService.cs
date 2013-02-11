@@ -20,7 +20,14 @@ namespace RS2013.RefugeesUnited.Services.Impl
 
 		public Session RetrieveSession(long id)
 		{
-			return SessionRepository.Get(id);
+			var session = SessionRepository.Get(id);
+			
+			if (session.State == SessionState.Terminated
+				|| session.Device.BlacklistReason != null
+				|| (session.User != null && session.User.BlacklistReason != null))
+				throw new UnauthorizedAccessException();
+
+			return session;
 		}
 
 		public Session CreateSession(string number)
@@ -31,6 +38,22 @@ namespace RS2013.RefugeesUnited.Services.Impl
 				throw new UnauthorizedAccessException();
 
 			return SessionRepository.Create(new Session { Device = device });
+		}
+
+		public void TerminateSession(Session session)
+		{
+			SessionRepository.Change(session, (ref Session s) => s.State = SessionState.Terminated);
+		}
+
+		public void SetSessionState(Session session, SessionState state, string data = null)
+		{
+			SessionRepository.Change(session, delegate(ref Session s)
+			{
+				s.State = state;
+
+				if (data != null)
+					s.StateJson = data;
+			});
 		}
 	}
 }

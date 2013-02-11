@@ -17,5 +17,19 @@ namespace RS2013.RefugeesUnited.Services
 		/// <param name="number"></param>
 		/// <returns></returns>
 		Session CreateSession(string number);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="session"></param>
+		void TerminateSession(Session session);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="session"></param>
+		/// <param name="state"></param>
+		/// <param name="data"></param>
+		void SetSessionState(Session session, SessionState state, string data = null);
 	}
 }
